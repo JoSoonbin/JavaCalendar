@@ -19,9 +19,9 @@ public class PlanItem {
 		return date;
 	}
 
-	public PlanItem(String date, String datail) {
+	public PlanItem(String date, String detail) {
 		this.planDate = getDateformString(date);
-		this.detail = datail;
+		this.detail = detail;
 	}
 
 	public Date getDate() {
@@ -30,5 +30,11 @@ public class PlanItem {
 
 	public void addPeople(String name) {
 		peoples += name + ",";
+	}
+
+	public String saveString() {
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String sdate = formatter.format(planDate);
+		return sdate + ", " + "\"" + detail + "\"" + "\n";
 	}
 }
