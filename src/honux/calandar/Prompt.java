@@ -20,23 +20,25 @@ public class Prompt {
 	 * @return 0 ~ 6 (0= Sunday, 6 = Saturday)
 	 */
 
-	public int StartWeekday(String weekday) {
-		if (weekday.equals("SU"))
+	public int StartWeekday(String week) {
+		switch (week) {
+		case "SU":
 			return 0;
-		else if (weekday.equals("MO"))
+		case "MO":
 			return 1;
-		else if (weekday.equals("TU"))
+		case "TU":
 			return 2;
-		else if (weekday.equals("WE"))
+		case "WE":
 			return 3;
-		else if (weekday.equals("TH"))
+		case "TH":
 			return 4;
-		else if (weekday.equals("FR"))
+		case "FR":
 			return 5;
-		else if (weekday.equals("SA"))
+		case "SA":
 			return 6;
-		else
+		default:
 			return 0;
+		}
 	}
 
 	public void runPrompt() throws ParseException {
@@ -44,20 +46,27 @@ public class Prompt {
 		Scanner scanner = new Scanner(System.in);
 		Calendar cal = new Calendar();
 
-
-		while (true) {
+		boolean isLoop =true;
+		while (isLoop) {
 			System.out.println("명령(1, 2, 3, h, q)");
 			String cmd = scanner.next();
-			if (cmd.equals("1"))
+			switch(cmd) {
+			case "1":
 				cmdRegister(scanner, cal);
-			else if (cmd.equals("2"))
-				cmdSearch(scanner, cal);
-			else if (cmd.equals("3"))
-				cmdCal(scanner, cal);
-			else if (cmd.equals("h"))
-				printMenu();
-			else if (cmd.equals("q"))
 				break;
+			case "2":
+				cmdSearch(scanner, cal);
+				break;
+			case "3":
+				cmdCal(scanner, cal);
+				break;
+			case "h":
+				printMenu();
+				break;
+			case "q":
+				isLoop = false;
+				break;
+			}
 		}
 
 		System.out.println("Thank you. Bye~");
@@ -67,7 +76,7 @@ public class Prompt {
 	private void cmdCal(Scanner s, Calendar c) {
 		int month = 1;
 		int year = 2019;
-		
+
 		System.out.println("년도를 입력하세요.(exit: -1)");
 		System.out.print("YEAR> ");
 		year = s.nextInt();
@@ -104,10 +113,10 @@ public class Prompt {
 		System.out.println("날짜를 입력해주세요.(yyyy-MM-dd)");
 		String date = s.next();
 		String text = "";
-		s.nextLine(); //ignore one newline
+		s.nextLine(); // ignore one newline
 		System.out.println("일정을 입력해주세요.");
 		text = s.nextLine();
-		
+
 		c.registerPlan(date, text);
 	}
 
